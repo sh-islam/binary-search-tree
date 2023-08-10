@@ -1,7 +1,7 @@
 public class BST {
     public Node root;  // BST contains a root node "root"
 
-     public class Node { // BST is made up of nodes with attributes
+    public class Node { // BST is made up of nodes with attributes
         int data;
         Node left;
         Node right;
@@ -26,7 +26,7 @@ public class BST {
                 if (data > currentNode.data) {                  // Searching log n nodes
                     if (currentNode.right == null) {
                         currentNode.right = new Node(data);
-                        break;
+                        break;  // After insertion of node, return to outer for loop to get next int val from dataArray
                     }
                     currentNode = currentNode.right;
                 } else {
@@ -67,7 +67,6 @@ public class BST {
         }
     }
 
-
     void printTree(BST.Node node, String indent, boolean last) {
         if (node != null) {
             System.out.print(indent);
@@ -84,15 +83,23 @@ public class BST {
         }
     }
 
+    void preOrderInsert(int [] dataArr){
+        root = new Node(dataArr[0]);
+        int[] newArr = new int[dataArr.length - 1];
+        System.arraycopy(dataArr, 1, newArr, 0, newArr.length);
+        insert(newArr);
+    }
+
     public static void main(String[] args) {
         BST bst = new BST();
         bst.insert(new int[] {4,5,3,2});
         bst.preOrderPrint(bst.root);
         bst.printTree(bst.root, "", true);
 
-        BST bst1 = new BST();
-        bst1.insert(new int[] {3,1,2});
-
+        BST bstPreOrder = new BST();
+        int [] preOrderArr = {4, 5, 3, 1, 6};
+        bstPreOrder.preOrderInsert(preOrderArr);
+        bstPreOrder.preOrderPrint(bstPreOrder.root);
     }
 
 
